@@ -7,10 +7,10 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIgnore;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.deber.data.category.Category;
-import com.deber.data.dynamodb.DDBModel;
+import com.deber.data.dynamodb.DDBMapped;
 
 @DynamoDBTable(tableName = "Categories")
-public class CategoryDDB implements DDBModel<Category> {
+public class CategoryDDB implements DDBMapped<Category> {
 
 	private String categoryId;
 	  private String group;

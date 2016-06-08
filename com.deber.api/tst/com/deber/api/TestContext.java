@@ -15,7 +15,20 @@ public class TestContext implements Context {
     private String awsRequestId = "EXAMPLE";
     private ClientContext clientContext;
     private String functionName = "EXAMPLE";
-    private CognitoIdentity identity;
+    private CognitoIdentity identity = new CognitoIdentity() {
+		
+		@Override
+		public String getIdentityPoolId() {
+			// TODO Auto-generated method stub
+			return "pool1";
+		}
+		
+		@Override
+		public String getIdentityId() {
+			// TODO Auto-generated method stub
+			return "test";
+		}
+	};
     private String logGroupName = "EXAMPLE";
     private String logStreamName = "EXAMPLE";
     private LambdaLogger logger = new TestLogger();

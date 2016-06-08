@@ -22,7 +22,7 @@ public class BaseDDBDAO {
 	    return new DynamoDBMapper(this.ddbClient);
 	  }
 	  
-	  protected static <E, DdbM extends DDBModel<E>> List<E> convertAllToDataModel(List<DdbM> lst)
+	  protected static <E, DdbM extends DDBMapped<E>> List<E> convertAllToDataModel(List<DdbM> lst)
 	  {
 	    List<E> retVal = new ArrayList<>();
 	    for (DdbM item : lst) {
@@ -31,7 +31,7 @@ public class BaseDDBDAO {
 	    return retVal;
 	  }
 	  
-	  protected static <E, DDBM extends DDBModel<E>> List<DDBM> convertAllToDdbModel(List<E> lst, Class<DDBM> clazz)
+	  protected static <E, DDBM extends DDBMapped<E>> List<DDBM> convertAllToDdbModel(List<E> lst, Class<DDBM> clazz)
 	  {
 	    List<DDBM> retVal = new ArrayList<>();
 	    for (E item : lst)

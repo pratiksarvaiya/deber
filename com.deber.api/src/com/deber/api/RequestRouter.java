@@ -9,6 +9,7 @@ import org.apache.commons.io.IOUtils;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
+import com.deber.api.actions.AbstractAction;
 import com.deber.api.actions.Action;
 import com.deber.api.exceptions.BadRequestException;
 import com.deber.api.exceptions.InternalErrorException;

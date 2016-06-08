@@ -1,6 +1,8 @@
-package com.deber.api.viewmodels;
+package com.deber.api.response;
 
 import java.util.List;
+
+import com.deber.api.viewmodels.CategoryView;
 
 public class GetCategoryResponse {
 
@@ -9,7 +11,6 @@ public class GetCategoryResponse {
 	public List<CategoryView> getItems() {
 		return items;
 	}
-
 	public void setItems(List<CategoryView> items) {
 		this.items = items;
 	}

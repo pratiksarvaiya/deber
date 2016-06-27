@@ -3,6 +3,7 @@ package com.deber.api;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,12 +14,12 @@ import org.junit.Test;
 
 import com.deber.api.exceptions.BadRequestException;
 import com.deber.api.exceptions.InternalErrorException;
-import com.deber.api.request.CreateTaskRequest;
-import com.deber.api.response.CreateTaskResponse;
-import com.deber.api.response.GetCategoryResponse;
 import com.deber.api.viewmodels.CategoryNormalisedValueView;
 import com.deber.api.viewmodels.LocationView;
 import com.deber.api.viewmodels.TaskView;
+import com.deber.api.viewmodels.request.CreateTaskRequest;
+import com.deber.api.viewmodels.response.CreateTaskResponse;
+import com.deber.api.viewmodels.response.GetCategoryResponse;
 import com.deber.data.CategoryNormalisedValue;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -30,11 +31,11 @@ public class ActionTest {
 		return new GsonBuilder()
 				// .enableComplexMapKeySerialization()
 				// .serializeNulls()
-				// .setDateFormat(DateFormat.LONG)
+				.setDateFormat(DateFormat.FULL)
 				// .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
 				.setPrettyPrinting().create();
 	}
-	
+
 	protected InputStream getInputStream(String s) {
 		return new ByteArrayInputStream(s.getBytes());
 	}
@@ -86,12 +87,12 @@ public class ActionTest {
 		relevances.add(v1);
 		relevances.add(v2);
 		task.setCategoryNormalisedValues(relevances);
-		
+
 		CreateTaskRequest req = new CreateTaskRequest();
 		req.setTask(task);
 		String body = getGson().toJson(req);
-		String model = "{\"action\" : \"com.deber.api.actions.CreateTask\", \"body\" : "+ body +"}";
-		
+		String model = "{\"action\" : \"com.deber.api.actions.CreateTask\", \"body\" : " + body + "}";
+
 		ByteArrayOutputStream res = new ByteArrayOutputStream();
 		try {
 			router.lambdaHandler(getInputStream(model), res, new TestContext());
@@ -100,7 +101,6 @@ public class ActionTest {
 			e.printStackTrace();
 		}
 		CreateTaskResponse resp = getGson().fromJson(getString(res), CreateTaskResponse.class);
-		assert(resp != null);
+		assert (resp != null);
 	}
-
 }

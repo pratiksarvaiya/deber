@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIgnore;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.deber.data.dynamodb.DDBMapped;
 import com.deber.data.task.Task;
@@ -107,7 +108,7 @@ public class TaskDDB implements DDBMapped<Task> {
 		this.difficultyLevel = difficultyLevel;
 	}
 
-	@DynamoDBAttribute(attributeName = "EndTime")
+	@DynamoDBIndexHashKey(attributeName = "EndTime")
 	public Date getEndTime() {
 		return endTime;
 	}

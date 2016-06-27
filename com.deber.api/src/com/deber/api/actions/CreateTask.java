@@ -1,9 +1,9 @@
 package com.deber.api.actions;
 
 import com.amazonaws.services.lambda.runtime.Context;
-import com.deber.api.request.CreateTaskRequest;
-import com.deber.api.response.CreateTaskResponse;
 import com.deber.api.viewmodels.TaskView;
+import com.deber.api.viewmodels.request.CreateTaskRequest;
+import com.deber.api.viewmodels.response.CreateTaskResponse;
 import com.deber.app.task.TaskManager;
 import com.deber.data.task.Task;
 import com.google.gson.JsonObject;

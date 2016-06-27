@@ -1,4 +1,4 @@
-package com.deber.api.request;
+package com.deber.api.viewmodels.request;
 
 import com.deber.api.viewmodels.TaskView;
 

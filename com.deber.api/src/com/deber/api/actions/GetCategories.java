@@ -1,8 +1,8 @@
 package com.deber.api.actions;
 
 import com.amazonaws.services.lambda.runtime.Context;
-import com.deber.api.response.GetCategoryResponse;
 import com.deber.api.viewmodels.CategoryView;
+import com.deber.api.viewmodels.response.GetCategoryResponse;
 import com.deber.app.category.CategoryManager;
 import com.google.gson.JsonObject;
 

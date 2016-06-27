@@ -1,4 +1,4 @@
-package com.deber.api.response;
+package com.deber.api.viewmodels.response;
 
 import java.util.List;
 

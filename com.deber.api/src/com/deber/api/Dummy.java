@@ -1,18 +1,14 @@
 package com.deber.api;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
 import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
+import com.amazonaws.services.lambda.runtime.RequestHandler;
 
-public class Dummy implements RequestStreamHandler {
+public class Dummy implements RequestHandler<String, String> {
 
 	@Override
-	public void handleRequest(InputStream input, OutputStream output, Context context) throws IOException {
+	public String handleRequest(String input, Context context) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 }

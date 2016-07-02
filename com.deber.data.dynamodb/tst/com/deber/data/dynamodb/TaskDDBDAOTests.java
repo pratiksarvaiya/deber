@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.deber.data.dynamodb.task.TaskDDBDAO;
 import com.deber.data.task.Task;
-import com.deber.dynamodb.task.TaskDDBDAO;
 
 public class TaskDDBDAOTests {
 

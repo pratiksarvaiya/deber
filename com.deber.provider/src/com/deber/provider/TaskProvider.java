@@ -1,7 +1,7 @@
 package com.deber.provider;
 
+import com.deber.data.dynamodb.task.TaskDDBDAO;
 import com.deber.data.task.TaskDAO;
-import com.deber.dynamodb.task.TaskDDBDAO;
 
 public class TaskProvider {
 

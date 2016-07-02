@@ -13,39 +13,33 @@ import com.deber.data.dynamodb.DDBMapped;
 public class CategoryDDB implements DDBMapped<Category> {
 
 	private String categoryId;
-	  private String group;
-	  
-	  @DynamoDBHashKey(attributeName="CategoryId")
-	  public String getCategoryId()
-	  {
-	    return this.categoryId;
-	  }
-	  
-	  public void setCategoryId(String categoryId)
-	  {
-	    this.categoryId = categoryId;
-	  }
-	  
-	  @DynamoDBAttribute(attributeName="Group")
-	  public String getGroup()
-	  {
-	    return this.group;
-	  }
-	  
-	  public void setGroup(String group)
-	  {
-	    this.group = group;
-	  }
-	  
-	  @DynamoDBIgnore
-	  public Category convertToDataModel()
-	  {
-	    return (Category)new ModelMapper().map(this, Category.class);
-	  }
-	  
-	  @DynamoDBIgnore
-	  public void copyDataModel(Category dataModel)
-	  {
-	    new ModelMapper().map(dataModel, this);
-	  }
+	private String group;
+
+	@DynamoDBHashKey(attributeName = "CategoryId")
+	public String getCategoryId() {
+		return this.categoryId;
+	}
+
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	@DynamoDBAttribute(attributeName = "Group")
+	public String getGroup() {
+		return this.group;
+	}
+
+	public void setGroup(String group) {
+		this.group = group;
+	}
+
+	@DynamoDBIgnore
+	public Category convertToDataModel() {
+		return (Category) new ModelMapper().map(this, Category.class);
+	}
+
+	@DynamoDBIgnore
+	public void copyDataModel(Category dataModel) {
+		new ModelMapper().map(dataModel, this);
+	}
 }

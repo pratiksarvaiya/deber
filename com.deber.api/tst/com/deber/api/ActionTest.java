@@ -12,20 +12,45 @@ import javax.swing.plaf.RootPaneUI;
 
 import org.junit.Test;
 
+import com.deber.api.actions.AbstractAction;
+import com.deber.api.actions.CreateTask;
+import com.deber.api.actions.GetCategories;
+import com.deber.api.actions.GetTasksForUser;
 import com.deber.api.exceptions.BadRequestException;
 import com.deber.api.exceptions.InternalErrorException;
 import com.deber.api.viewmodels.CategoryNormalisedValueView;
 import com.deber.api.viewmodels.LocationView;
 import com.deber.api.viewmodels.TaskView;
 import com.deber.api.viewmodels.request.CreateTaskRequest;
+import com.deber.api.viewmodels.request.GetTasksForUserRequest;
 import com.deber.api.viewmodels.response.CreateTaskResponse;
 import com.deber.api.viewmodels.response.GetCategoryResponse;
+import com.deber.api.viewmodels.response.GetTasksForUserResponse;
 import com.deber.data.CategoryNormalisedValue;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 
 public class ActionTest {
 
+	private class Request<RequestType>{
+		public String action;
+		public RequestType body;
+		public String getAction() {
+			return action;
+		}
+		public void setAction(String action) {
+			this.action = action;
+		}
+		public RequestType getBody() {
+			return body;
+		}
+		public void setBody(RequestType body) {
+			this.body = body;
+		}
+		
+	};
+	
 	protected Gson getGson() {
 
 		return new GsonBuilder()
@@ -46,22 +71,12 @@ public class ActionTest {
 
 	@Test
 	public void testGetCategoriesAction() {
-		RequestRouter router = new RequestRouter();
-		String model = "{\"action\" : \"com.deber.api.actions.GetCategories\", \"body\" : {}}";
-		ByteArrayOutputStream res = new ByteArrayOutputStream();
-		try {
-			router.lambdaHandler(getInputStream(model), res, new TestContext());
-		} catch (InternalErrorException | BadRequestException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		GetCategoryResponse resp = getGson().fromJson(getString(res), GetCategoryResponse.class);
+		GetCategoryResponse resp = getResponse(GetCategories.class, new Object(), GetCategoryResponse.class);
 		assert (resp.getItems().size() > 0);
 	}
 
 	@Test
 	public void testCreateTask() {
-		RequestRouter router = new RequestRouter();
 		TaskView task = new TaskView();
 		task.setTaskName("Test Task 1");
 		task.setDescription("Line 1\nLine 2\nLine 3");
@@ -90,17 +105,41 @@ public class ActionTest {
 
 		CreateTaskRequest req = new CreateTaskRequest();
 		req.setTask(task);
-		String body = getGson().toJson(req);
-		String model = "{\"action\" : \"com.deber.api.actions.CreateTask\", \"body\" : " + body + "}";
-
+		
+		CreateTaskResponse resp = getResponse(CreateTask.class, req, CreateTaskResponse.class);
+		assert (resp != null);
+	}
+	
+	@Test
+	public void testTasksForUser()
+	{
+		LocationView location = new LocationView();
+		location.setLatitude(0);
+		location.setLongitude(0);
+		
+		GetTasksForUserRequest req = new GetTasksForUserRequest();
+		req.setLocation(location);
+		GetTasksForUserResponse resp = getResponse(GetTasksForUser.class, req, GetTasksForUserResponse.class);
+		assert (resp != null);
+		
+	}
+	
+	private <Action extends AbstractAction, RequestType, ResponseType> ResponseType getResponse(
+			Class<Action> actionClass, RequestType req, Class<ResponseType> respClass)
+	{
+		Request<RequestType> model = new Request<RequestType>();
+		model.setAction(actionClass.getName());
+		model.setBody(req);
+		RequestRouter router = new RequestRouter();
+		
 		ByteArrayOutputStream res = new ByteArrayOutputStream();
 		try {
-			router.lambdaHandler(getInputStream(model), res, new TestContext());
+			router.lambdaHandler(getInputStream(getGson().toJson(model)), res, new TestContext());
 		} catch (InternalErrorException | BadRequestException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		CreateTaskResponse resp = getGson().fromJson(getString(res), CreateTaskResponse.class);
-		assert (resp != null);
+		
+		return getGson().fromJson(getString(res), respClass);
 	}
 }

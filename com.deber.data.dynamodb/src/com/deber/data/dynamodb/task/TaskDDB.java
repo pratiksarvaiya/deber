@@ -1,4 +1,4 @@
-package com.deber.dynamodb.task;
+package com.deber.data.dynamodb.task;
 
 import java.util.Date;
 
